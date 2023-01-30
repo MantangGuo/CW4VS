@@ -22,7 +22,7 @@ where `N` is the number of views of the scene, `ns` is the number of source view
 
 
 ### Run CW4VS
-We provide the pre-trained model on the 2-input task over the DTU dataset in the folder `./logs/DTU/`
+We provide the pre-trained model on the 2-input task over the DTU dataset in the folder [here](https://drive.google.com/file/d/1mU-ZR8vhdKghile2CKJ2MvcSgIej8EPo/view?usp=sharing). Put the downloaded model in the folder `./logs/DTU/`
 
 - Inference:
 ```
