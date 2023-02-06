@@ -33,3 +33,5 @@ python test.py --num_source 2 --model_name dtu_s2.pth --test_data_path ./dataset
 ```
 python train.py --num_source 2 --training_data_path ./dataset/train_DTU_RGB_79x49_flow_79x49x2x1_6dof_79x49x6_sc_79x49x2.h5
 ```
+### Video
+[![The video demo](https://img.youtube.com/vi/tK2tBKYKrOU/hqdefault.jpg)](https://youtu.be/tK2tBKYKrOU)
