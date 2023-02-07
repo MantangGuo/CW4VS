@@ -1,5 +1,5 @@
 # CW4VS
-PyTorch implementation of our paper "[Content-aware Warping for View Synthesis](https://arxiv.org/abs/2201.09023)"
+PyTorch implementation of our paper "[Content-aware Warping for View Synthesis](https://ieeexplore.ieee.org/document/10038566)"
 
 ## Requrements
 - Python 3.6.10
