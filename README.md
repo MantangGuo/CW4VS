@@ -35,3 +35,14 @@ python train.py --num_source 2 --training_data_path ./dataset/train_DTU_RGB_79x4
 ```
 ## Video
 [![The video demo](https://img.youtube.com/vi/tK2tBKYKrOU/hqdefault.jpg)](https://youtu.be/tK2tBKYKrOU)
+
+## Citation
+Please cite our paper if you find it useful.
+```
+@ARTICLE{10038566,
+  author={Guo, Mantang and Hou, Junhui and Jin, Jing and Liu, Hui and Zeng, Huanqiang and Lu, Jiwen},
+  journal={IEEE Transactions on Pattern Analysis and Machine Intelligence}, 
+  title={Content-aware Warping for View Synthesis}, 
+  year={2023},
+  doi={10.1109/TPAMI.2023.3242709}}
+```
