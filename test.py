@@ -62,13 +62,6 @@ if __name__ == '__main__':
 
 
     with torch.no_grad():
-        scene_name_list = []
-        scene_psnr_ref = []
-        scene_ssim_ref = []
-        scene_psnr_blended = []
-        scene_ssim_blended = []
-        scene_psnr_interp = []
-        scene_ssim_interp = []
      
         # inference
         for ind_scene,test_scene in enumerate(test_dataloader):
@@ -147,65 +140,4 @@ if __name__ == '__main__':
             scio.savemat(os.path.join(exp_path,scene_name[0]+'_interp.mat'),
                          {'lf_recons':interp_esti_views}) #[t,h_croped,w_croped,c]
 
-            # evaluation
-            # ref
-            scene_psnr, scene_ssim = ComputeQuant(ref_esti_views[target_view_indexes],gt_views[target_view_indexes])
-            scene_psnr_ref.append(scene_psnr)
-            scene_ssim_ref.append(scene_ssim)
-
-            # blend
-            scene_psnr, scene_ssim = ComputeQuant(blended_esti_views[target_view_indexes],gt_views[target_view_indexes])
-            scene_psnr_blended.append(scene_psnr)
-            scene_ssim_blended.append(scene_ssim)
-
-            # interp
-            scene_psnr = 0
-            scene_ssim = 0
-            for i in range(interp_esti_views.shape[1]):
-                temp_psnr, temp_ssim = ComputeQuant(interp_esti_views[target_view_indexes,i],gt_views[target_view_indexes])
-                scene_psnr += temp_psnr
-                scene_ssim += temp_ssim
-            scene_psnr_interp.append(scene_psnr/interp_esti_views.shape[1])
-            scene_ssim_interp.append(scene_ssim/interp_esti_views.shape[1])
-            
-            log.info('''
-                        Index: %d  
-                        Scene: %s
-                        ref_PSNR: %.2f  ref_SSIM: %.3f
-                        blended_PSNR: %.2f  blended_SSIM: %.3f
-                        interp_PSNR: %.2f  interp_SSIM: %.3f
-                    '''
-                    %(ind_scene+1,
-                      scene_name_list[ind_scene],
-                      scene_psnr_ref[ind_scene],scene_ssim_ref[ind_scene],
-                      scene_psnr_blended[ind_scene],scene_ssim_blended[ind_scene],
-                      scene_psnr_interp[ind_scene],scene_ssim_interp[ind_scene]
-                    ))
-
-        log.info('''
-                    Average
-                    ref_PSNR: %.2f  ref_SSIM: %.3f
-                    blended_PSNR: %.2f  blended_SSIM: %.3f
-                    interp_PSNR: %.2f  interp_SSIM: %.3f
-                 '''
-                    %(np.mean(scene_psnr_ref),np.mean(scene_ssim_ref),
-                      np.mean(scene_psnr_blended),np.mean(scene_ssim_blended),
-                      np.mean(scene_psnr_interp),np.mean(scene_ssim_interp)
-                    ))  
-
-        # log in Excel
-        scene_name_list.append('Average')
-        scene_psnr_ref.append(np.mean(scene_psnr_ref))
-        scene_ssim_ref.append(np.mean(scene_ssim_ref))
-        scene_psnr_blended.append(np.mean(scene_psnr_blended))
-        scene_ssim_blended.append(np.mean(scene_ssim_blended))
-        scene_psnr_interp.append(np.mean(scene_psnr_interp))
-        scene_ssim_interp.append(np.mean(scene_ssim_interp))
-
-        data = {'Scenes': scene_name_list, 
-                'psnr_ref': scene_psnr_ref, 'ssim_ref': scene_ssim_ref,
-                'psnr_blended': scene_psnr_blended, 'ssim_blended': scene_ssim_blended,
-                'psnr_interp': scene_psnr_interp, 'ssim_interp': scene_ssim_interp
-                }
-        df = DataFrame(data)
-        df.to_excel(os.path.join(exp_path,'Testing.xlsx'))              
+                          
