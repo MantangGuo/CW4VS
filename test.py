@@ -5,7 +5,6 @@ import scipy.io as scio
 import logging
 import argparse
 from torch.utils.data import DataLoader
-from pandas import DataFrame
 from data_loader import TestDataset
 from main_net import MainNet
 from functions import to_device
@@ -13,7 +12,6 @@ from functions import crop_image
 from functions import merge_image 
 from functions import generate_samples
 from functions import extract_batch
-from functions import ComputeQuant
 
 
 # Testing settings
