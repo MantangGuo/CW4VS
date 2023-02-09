@@ -5,26 +5,6 @@ import random
 import math
 import numpy as np
 from torch.autograd import Variable
-from skimage.measure import compare_ssim
-
-def ComputeQuant(pred_views, gt_views):
-    '''
-    pred_views: [t,h,w,3]
-    gt_views: [t,h,w,3]
-    '''
-    scene_psnr = []
-    scene_ssim =[]
-    for i in range(pred_views.shape[0]):
-        view_psnr =  comp_psnr(pred_views[i],gt_views[i])
-        view_ssim = compare_ssim((pred_views[i]*255.0).astype(np.uint8),
-                                 (gt_views[i]*255.0).astype(np.uint8),
-                                 gaussian_weights=True,
-                                 sigma=1.5,
-                                 use_sample_covariance=False,
-                                 multichannel=True)
-        scene_psnr.append(view_psnr)
-        scene_ssim.append(view_ssim)
-    return np.mean(scene_psnr), np.mean(scene_ssim)
 
 
 def crop_image(image, patch_size): 
@@ -53,16 +33,6 @@ def merge_image(image_stack,coordinate):
     image_merged  = image_stack.reshape(b,c,coordinate[0]*patch_size,coordinate[1]*patch_size)
     return image_merged # [b,c,h_croped,w_croped]
     
-
-def comp_psnr(img1, img2):
-    mse = np.mean( (img1 - img2) ** 2 )
-    if mse == 0:
-        return 100
-    PIXEL_MAX = 1.0
-    if mse > 1000:
-        return -100
-    return 20 * math.log10(PIXEL_MAX / math.sqrt(mse))
-
 
 #Move tensor(s) to chosen device
 def to_device(data, device):
